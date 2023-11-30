@@ -1,6 +1,10 @@
 package com.bozan.model;
 
-public class Constans {
+import com.bozan.util.Calculate;
+
+import java.util.List;
+
+public class MapData {
     public static final String NORTH_WEST_CORNER = "##TopLeft##";
     public static final String SOUTH_EAST_CORNER = "##BottomRight##";
     public final double clusterSizeLat;
@@ -10,12 +14,15 @@ public class Constans {
     public final double mostSouthLat;
     public final double mostEastLng;
 
-    public Constans(double clusterSizeLat, double clusterSizeLng, double mostNorthLat, double mostWestLng, double mostSouthLat, double mostEastLng) {
-        this.clusterSizeLat = clusterSizeLat;
-        this.clusterSizeLng = clusterSizeLng;
+    public final List<Coordinate> cityList;
+
+    public MapData(double mostNorthLat, double mostWestLng, double mostSouthLat, double mostEastLng, List<Coordinate> cityList) {
+        this.clusterSizeLat = Calculate.getClusterSizeLat(cityList.size(), mostNorthLat, mostSouthLat);
+        this.clusterSizeLng = Calculate.getClusterSizeLng(cityList.size(), mostWestLng, mostEastLng);
         this.mostNorthLat = mostNorthLat;
         this.mostWestLng = mostWestLng;
         this.mostSouthLat = mostSouthLat;
         this.mostEastLng = mostEastLng;
+        this.cityList = cityList;
     }
 }
