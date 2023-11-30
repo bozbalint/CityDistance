@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class App {
     public static void main(String[] args) {
@@ -28,9 +29,9 @@ public class App {
             System.out.print("Get closest: " + coordinate.cityName);
 
             String key = Calculate.getClusterPosition(coordinate, mapData);
-            Coordinate closestCity = Calculate.getClosestCity(cityClusterMap, coordinate, Collections.singleton(key), new HashSet<>());
-            if (closestCity != null) {
-                System.out.println("     -> " + closestCity.cityName);
+            List<Coordinate> closestCities = Calculate.getClosestCity(cityClusterMap, coordinate, Collections.singleton(key), new HashSet<>());
+            if (closestCities != null) {
+                System.out.println("     -> " + closestCities.stream().map(c -> c.cityName).collect( Collectors.joining( "; " )));
             } else {
                 System.err.println("No closest found: " + coordinate.cityName);
             }

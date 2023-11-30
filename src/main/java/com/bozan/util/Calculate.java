@@ -7,6 +7,7 @@ import java.util.*;
 
 public class Calculate {
     private static final double EARTH_RADIUS = 6371; // Approx Earth radius in KM
+    public static final int NUM_OF_CITY_IN_RESULT = 2;
 
     public static double calculateDistance(Coordinate c1, Coordinate c2) {
 
@@ -64,7 +65,7 @@ public class Calculate {
         return keyX + ":" + keyY;
     }
 
-    public static Coordinate getClosestCity(Map<String, List<Coordinate>> clusterMap, Coordinate fromCity, Set<String> clusterKeystoCheck, Set<String> clusterKeysWasCheck) {
+    public static List<Coordinate> getClosestCity(Map<String, List<Coordinate>> clusterMap, Coordinate fromCity, Set<String> clusterKeystoCheck, Set<String> clusterKeysWasCheck) {
 
         List<Coordinate> closestCityList = new LinkedList<>();
         Set<String> keySetToCheck = new LinkedHashSet<>();
@@ -79,29 +80,26 @@ public class Calculate {
             clusterKeysWasCheck.add(key);
         });
 
+        // have city in the same cluster
+        if (citiesInCluster.size() > 1 || citiesInCluster.size() == 1 && !citiesInCluster.contains(fromCity)) {
+            closestCityList.addAll(Coordinate.shortByDist(fromCity, citiesInCluster));
+        } else {
+            // find cities in the surrounding clusters
+            clusterKeystoCheck.forEach(key -> {
+                String[] keys = key.split(":");
 
-        citiesInCluster.forEach(coordinate -> {
-            // have city in the same cluster
-            if (citiesInCluster.size() > 1 || citiesInCluster.size() == 1 && !citiesInCluster.contains(fromCity)) {
-                closestCityList.addAll(Coordinate.shortByDist(fromCity, citiesInCluster));
-            } else {
-                // find cities in the surrounding clusters
-                clusterKeystoCheck.forEach(key -> {
-                    String[] keys = key.split(":");
-
-                    for (int i = -1; i <= 1; i++) {
-                        for (int j = -1; j <= 1; j++) {
-                            keySetToCheck.add((Integer.parseInt(keys[0]) + i) + ":" + (Integer.parseInt(keys[1]) + j));
-                        }
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        keySetToCheck.add((Integer.parseInt(keys[0]) + i) + ":" + (Integer.parseInt(keys[1]) + j));
                     }
-                    keySetToCheck.removeAll(clusterKeysWasCheck);
-                });
-            }
-        });
+                }
+                keySetToCheck.removeAll(clusterKeysWasCheck);
+            });
+        }
 
         if (!closestCityList.isEmpty()) {
             // happy to found closest
-            return Coordinate.shortByDist(fromCity, closestCityList).get(0);
+            return Coordinate.shortByDist(fromCity, closestCityList).subList(0, Math.min(NUM_OF_CITY_IN_RESULT, closestCityList.size()));
         } else {
             if (!keySetToCheck.isEmpty()) {
                 // recursive search on the surrounding clusters
