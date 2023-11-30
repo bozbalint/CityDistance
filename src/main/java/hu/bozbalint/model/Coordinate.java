@@ -1,6 +1,6 @@
-package com.bozan.model;
+package hu.bozbalint.model;
 
-import com.bozan.util.Calculate;
+import hu.bozbalint.util.Calculate;
 
 import java.util.*;
 

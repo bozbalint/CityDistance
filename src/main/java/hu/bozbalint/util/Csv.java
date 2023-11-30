@@ -1,11 +1,10 @@
-package com.bozan.util;
+package hu.bozbalint.util;
 
-import com.bozan.model.Coordinate;
-import com.bozan.model.MapData;
+import hu.bozbalint.model.Coordinate;
+import hu.bozbalint.model.MapData;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;

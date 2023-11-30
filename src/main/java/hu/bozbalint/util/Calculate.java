@@ -1,7 +1,7 @@
-package com.bozan.util;
+package hu.bozbalint.util;
 
-import com.bozan.model.Coordinate;
-import com.bozan.model.MapData;
+import hu.bozbalint.model.Coordinate;
+import hu.bozbalint.model.MapData;
 
 import java.util.*;
 

@@ -1,7 +1,7 @@
-package com.bozan;
+package hu.bozbalint;
 
-import com.bozan.model.Coordinate;
-import com.bozan.util.Calculate;
+import hu.bozbalint.model.Coordinate;
+import hu.bozbalint.util.Calculate;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;

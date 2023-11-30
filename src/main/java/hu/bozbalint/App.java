@@ -1,9 +1,9 @@
-package com.bozan;
+package hu.bozbalint;
 
-import com.bozan.model.Coordinate;
-import com.bozan.model.MapData;
-import com.bozan.util.Calculate;
-import com.bozan.util.Csv;
+import hu.bozbalint.model.Coordinate;
+import hu.bozbalint.model.MapData;
+import hu.bozbalint.util.Calculate;
+import hu.bozbalint.util.Csv;
 
 import java.util.Collections;
 import java.util.HashSet;
